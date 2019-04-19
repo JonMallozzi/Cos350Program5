@@ -15,18 +15,30 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
+#include <string.h>
 #include "smsh.h"
 
+//not used anymore
+//as it was changed
 #define	DFL_PROMPT	"> "
 
-//testing git //more testing
-int main()
-{
+ 
+
+int main(){
   char	*cmdline, *prompt, **arglist;
   int	result;
   void	setup();
 
-  prompt = DFL_PROMPT ;
+  //buffer used to change the prompt
+  char promptBuf[20];
+
+  //puts the username as first thing in buff
+  getlogin_r(promptBuf,sizeof(promptBuf));
+
+  //puts the :$  at the end of the prompt to finish it
+  strcat(promptBuf,":$ ");
+
+  prompt = promptBuf ;
   setup();
 
   while ( (cmdline = next_cmd(prompt, stdin)) != NULL ){
