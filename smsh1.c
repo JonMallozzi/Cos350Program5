@@ -19,6 +19,7 @@
 
 #define	DFL_PROMPT	"> "
 
+//testing git
 int main()
 {
   char	*cmdline, *prompt, **arglist;
