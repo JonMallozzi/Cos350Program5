@@ -1,3 +1,10 @@
+/*******************************************************
+* Group: Jonathan Gilikson, Jon Mallozzi, Fazil Shaikh *
+* COS 350 Project 5                                    *
+* Project 4: mysh                                      *
+* Date: 4/19/19                                        *
+*******************************************************/
+
 /**  smsh1.c  small-shell version 1
  **		first really useful version after prompting shell
  **		this one parses the command line into strings
