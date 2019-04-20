@@ -5,9 +5,9 @@
 
 int main(){
 
-printf("job id: %d\n", getpid());
+//printf("job id: %d\n", getpid());
 
-for(int i = 0; i < 50; i++){
+for(int i = 0; i < 3; i++){
 printf("%d\n",i);
 fflush(stdin);
 usleep(2000000);

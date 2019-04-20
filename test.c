@@ -11,7 +11,7 @@ int main(){
     int userName = getlogin_r(userNameBuf,sizeof(userNameBuf));
 
 
-    char *cat = "catt";
+    char *cat = "cat";
     char **catPointer = &cat;
 
     
@@ -19,7 +19,9 @@ int main(){
     printf("t: %c\n", cat[strlen(cat) -2]);
     printf("tagain: %c\n", cat[2]);
 
-    printf("**buffer end: %s\n", strchr(*catPointer,'t'));
+    printf("**buffer end: %c\n", *catPointer[strlen(cat) -1]);
+
+    //if(strcmp())
 
     size_t currBuffSize = strlen(userNameBuf);
 
@@ -41,7 +43,7 @@ int main(){
 currBuffSize = strlen(userNameBuf);
    userNameBuf[currBuffSize++] = '>';
 
-   printf("size of buff after directory: %ld",strlen(userNameBuf));
+   printf("size of buff after directory: %ld\n",strlen(userNameBuf));
 
    printf("%s \n",userNameBuf);
     return 0;

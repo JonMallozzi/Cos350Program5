@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <string.h>
+#include <sys/wait.h>
 #include "smsh.h"
 
 //not used anymore
@@ -44,6 +45,7 @@ int main(){
   while ( (cmdline = next_cmd(prompt, stdin)) != NULL ){
     if ( (arglist = splitline(cmdline)) != NULL  ){
     
+      
       //checks to see if the shell should exit
       if(strcmp(arglist[0],"exit") == 0 ){
          
@@ -78,8 +80,44 @@ int main(){
         chdir(arglist[1]);
         }
     
+      //checks to run a process in the background
+     }else if((cmdline[strlen(cmdline) - 1]) == '&'){
+
+       //removes the & from the end
+       cmdline[strlen(cmdline) - 1] = '\0';
+
+      //forking for the background process
+      if(fork() == -1){
+
+        //returns an error if forking caused an error
+        perror("fork error");
+
      //just does normal commands if no new commands are found
-     }else{
+      }else{
+        
+        //gets and stores the background's processes pid
+        pid_t backgroundPid = getpid();
+        
+        //status of the background task
+        int stat;
+
+        printf("started %s in background with the job id: %d\n",arglist[0],backgroundPid);
+
+        //running arglist[0]
+        execvp(arglist[0], arglist);
+        perror("cannot execute command");
+
+       
+       waitpid(backgroundPid,&stat,0);
+       
+       //checking to see what waitpid returned
+       if(WIFEXITED(stat))
+         printf("Background task %d terminated with the status: %d\n",
+                                                   backgroundPid,WIFEXITED(stat));
+
+      }
+      
+      }else{
       result = execute(arglist);
      }
       freelist(arglist);

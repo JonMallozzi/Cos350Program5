@@ -7,11 +7,11 @@ int main(){
 
 int i = 0;
 
-printf("job id: %d\n", getpid());
+//printf("job id: %d\n", getpid());
 
 if (fork() == 0){
 
-printf("job id: %d\n", getpid());
+printf("started string in background with the job id: %d\n", getpid());
 
 execvp("./count",NULL);
 
