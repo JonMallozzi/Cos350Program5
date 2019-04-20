@@ -1,7 +1,7 @@
 /*******************************************************
 * Group: Jonathan Gilikson, Jon Mallozzi, Fazil Shaikh *
 * COS 350 Project 5                                    *
-* Project 4: mysh                                      *
+* Project 5: mysh                                      *
 * Date: 4/19/19                                        *
 *******************************************************/
 
@@ -43,7 +43,46 @@ int main(){
 
   while ( (cmdline = next_cmd(prompt, stdin)) != NULL ){
     if ( (arglist = splitline(cmdline)) != NULL  ){
+    
+      //checks for a change directory call
+      if (strcmp(arglist[0],"cd") == 0){
+        printf("hi");
+
+        //checks if the directory can be changed to
+        if(chdir(arglist[1]) == -1){
+        perror("cannot change directory");
+
+        //changes to home if just cd is given  
+        }else if (arglist[1] == NULL){
+       
+        chdir(getenv("HOME"));
+
+        //changes to directory given as an argument  
+        }else{
+        chdir(arglist[1]);
+        }
+
+     }else{
       result = execute(arglist);
+     }
+
+
+      printf("result: %d\n", result);
+
+      //exits when exits is given with no value using
+      //512 because its the default with exit(2)
+      if (result == 512){
+            printf("exiting the shell");
+            exit(1);
+      }
+
+      //returns with value given as argument for exit
+      if(result != 0 && result != 256 && result != 512 && result !=-1){
+        printf("exiting the shell with the exit value: %d \n",result);
+        exit(result);
+      }
+          
+
       freelist(arglist);
     }
     free(cmdline);

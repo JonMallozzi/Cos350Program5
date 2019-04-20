@@ -11,6 +11,16 @@ int main(){
     int userName = getlogin_r(userNameBuf,sizeof(userNameBuf));
 
 
+    char *cat = "catt";
+    char **catPointer = &cat;
+
+    
+
+    printf("t: %c\n", cat[strlen(cat) -2]);
+    printf("tagain: %c\n", cat[2]);
+
+    printf("**buffer end: %s\n", strchr(*catPointer,'t'));
+
     size_t currBuffSize = strlen(userNameBuf);
 
     printf("size of the buff: %ld \n", currBuffSize);
